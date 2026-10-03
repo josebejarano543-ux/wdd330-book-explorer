@@ -31,15 +31,22 @@
         </p>
 
         <form id="search-form">
-          <input
-            type="search"
-            id="search-input"
-            placeholder="Search for a book..."
-            required
-          />
+  <select id="search-type">
+    <option value="all">All</option>
+    <option value="title">Title</option>
+    <option value="author">Author</option>
+    <option value="subject">Subject</option>
+  </select>
 
-          <button type="submit">Search</button>
-        </form>
+  <input
+    type="search"
+    id="search-input"
+    placeholder="Search for a book..."
+    required
+  />
+
+  <button type="submit">Search</button>
+</form>
       </section>
 
       <section class="results-section">
@@ -53,6 +60,19 @@
   <button id="close-details" type="button">Back to Results</button>
 
   <div id="book-details"></div>
+</section>
+<section id="reading-list-section" class="reading-list-section hidden">
+  <div class="reading-list-header">
+    <h2>My Reading List</h2>
+
+    <button id="close-reading-list" type="button">
+      Back to Search
+    </button>
+  </div>
+
+  <div id="reading-list" class="book-grid">
+    <p>Your reading list is empty.</p>
+  </div>
 </section>
     </main>
 

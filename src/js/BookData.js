@@ -1,7 +1,22 @@
 const BASE_URL = "https://openlibrary.org/search.json";
 
-export async function searchBooks(query) {
-  const url = `${BASE_URL}?q=${encodeURIComponent(query)}&limit=12`;
+export async function searchBooks(query, type = "all") {
+  const params = new URLSearchParams();
+
+  if (type === "title") {
+    params.set("title", query);
+  } else if (type === "author") {
+    params.set("author", query);
+  } else if (type === "subject") {
+    params.set("subject", query);
+  } else {
+    params.set("q", query);
+  }
+
+  // Ask for more results so we can remove books without covers
+  params.set("limit", "30");
+
+  const url = `${BASE_URL}?${params.toString()}`;
 
   const response = await fetch(url);
 
@@ -11,5 +26,9 @@ export async function searchBooks(query) {
 
   const data = await response.json();
 
-  return data.docs;
+  // Only keep books that have a real cover
+  const booksWithCovers = data.docs.filter((book) => book.cover_i);
+
+  // Display a maximum of 12 books
+  return booksWithCovers.slice(0, 12);
 }

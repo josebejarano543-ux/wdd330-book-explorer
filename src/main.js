@@ -12,6 +12,7 @@ const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search-input");
 const searchType = document.querySelector("#search-type");
 const bookResults = document.querySelector("#book-results");
+const resultsInfo = document.querySelector("#results-info");
 
 const heroSection = document.querySelector(".hero");
 const resultsSection = document.querySelector(".results-section");
@@ -53,9 +54,12 @@ searchForm.addEventListener("submit", async (event) => {
   try {
     const books = await searchBooks(searchTerm, searchType.value);
 
-    currentBooks = books;
+currentBooks = books;
 
-    displayBooks(books);
+resultsInfo.textContent =
+  `${books.length} results for "${searchTerm}"`;
+
+displayBooks(books);
   } catch (error) {
     console.error(error);
 

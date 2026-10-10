@@ -22,11 +22,17 @@ const bookDetails = document.querySelector("#book-details");
 const closeDetails = document.querySelector("#close-details");
 
 const readingListLink = document.querySelector("#reading-list-link");
+const readingListCount = document.querySelector("#reading-list-count");
 const readingListSection = document.querySelector("#reading-list-section");
 const readingListContainer = document.querySelector("#reading-list");
 const closeReadingList = document.querySelector("#close-reading-list");
 
 let currentBooks = [];
+
+function updateReadingListCount() {
+  const books = getReadingList();
+  readingListCount.textContent = books.length;
+}
 
 function getBookCover(book, size = "M") {
   if (book.cover_i) {
@@ -49,7 +55,8 @@ searchForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  bookResults.innerHTML = "<p>Loading books...</p>";
+ bookResults.innerHTML =
+  '<p class="loading-message">Loading books...</p>';
 
   try {
     const books = await searchBooks(searchTerm, searchType.value);
@@ -63,14 +70,15 @@ displayBooks(books);
   } catch (error) {
     console.error(error);
 
-    bookResults.innerHTML =
-      "<p>Sorry, there was a problem loading the books.</p>";
+bookResults.innerHTML =
+  '<p class="error-message">Sorry, there was a problem loading the books.</p>';
   }
 });
 
 function displayBooks(books) {
   if (books.length === 0) {
-    bookResults.innerHTML = "<p>No books found.</p>";
+   bookResults.innerHTML =
+  '<p class="status-message">No books found. Try another search.</p>';
     return;
   }
 
@@ -140,6 +148,7 @@ bookResults.addEventListener("click", async (event) => {
     if (saved) {
       event.target.textContent = "Saved ✓";
       event.target.disabled = true;
+      updateReadingListCount();
     }
 
     return;
@@ -341,9 +350,10 @@ readingListContainer.addEventListener("click", (event) => {
 
   const bookKey = event.target.dataset.key;
 
-  removeBook(bookKey);
+removeBook(bookKey);
 
-  displayReadingList();
+displayReadingList();
+updateReadingListCount();
 });
 
 closeReadingList.addEventListener("click", () => {
@@ -357,3 +367,4 @@ closeReadingList.addEventListener("click", () => {
     displayBooks(currentBooks);
   }
 });
+updateReadingListCount();

@@ -7,6 +7,7 @@
       name="description"
       content="Search for books and create your personal reading list."
     />
+    <meta name="author" content="Jose Bejarano" />
     <title>Book Explorer</title>
   </head>
 
@@ -33,6 +34,7 @@
         </p>
 
         <form id="search-form">
+  <label for="search-type" class="sr-only">Search by</label>
   <select id="search-type">
     <option value="all">All</option>
     <option value="title">Title</option>
@@ -40,6 +42,7 @@
     <option value="subject">Subject</option>
   </select>
 
+  <label for="search-input" class="sr-only">Search for a book</label>
   <input
     type="search"
     id="search-input"
@@ -59,11 +62,11 @@
           <p>Search for a book to get started.</p>
         </div>
       </section>
-      <section id="book-details-section" class="book-details-section hidden">
+      <div id="book-details-section" class="book-details-section hidden">
   <button id="close-details" type="button">Back to Results</button>
 
   <div id="book-details"></div>
-</section>
+</div>
 <section id="reading-list-section" class="reading-list-section hidden">
   <div class="reading-list-header">
     <h2>My Reading List</h2>

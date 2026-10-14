@@ -1,13 +1,12 @@
 import "./style.css";
-import { searchBooks } from "./js/BookData.js";
-import { getBookDetails } from "./js/BookDetails.js";
+import { searchBooks } from "./js/book-data.js";
+import { getBookDetails } from "./js/book-details.js";
 import {
   getReadingList,
   saveBook,
   removeBook,
   isBookSaved,
-} from "./js/ReadingList.js";
-
+} from "./js/reading-list.js";
 const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search-input");
 const searchType = document.querySelector("#search-type");
@@ -67,9 +66,7 @@ resultsInfo.textContent =
   `${books.length} results for "${searchTerm}"`;
 
 displayBooks(books);
-  } catch (error) {
-    console.error(error);
-
+ } catch {
 bookResults.innerHTML =
   '<p class="error-message">Sorry, there was a problem loading the books.</p>';
   }
@@ -175,10 +172,8 @@ async function showBookDetails(book) {
     const details = await getBookDetails(isbn, title, author);
 
     displayBookDetails(book, details);
-  } catch (error) {
-    console.error(error);
-
-    const cover = getBookCover(book, "L");
+} catch {
+  const cover = getBookCover(book, "L");
 
     bookDetails.innerHTML = `
       <article class="details-card">
